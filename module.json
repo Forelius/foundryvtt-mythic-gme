@@ -9,15 +9,15 @@
       "ko-fi": "https://ko-fi.com/jeansenvaars"
     }
   ],
-  "version": "2.9.8",
+  "version": "2.9.19",
   "url": "https://github.com/saif-ellafi/foundryvtt-mythic-gme.git",
   "manifest": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/latest/download/module.json",
-  "download": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/download/2.9.8/foundryvtt-mythic-gme_2.9.8.zip",
+  "download": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/releases/download/2.9.19/foundryvtt-mythic-gme_2.9.19.zip",
   "changelog": "https://github.com/saif-ellafi/foundryvtt-mythic-gme/blob/master/CHANGELOG.md",
   "compatibility": {
     "minimum": "11",
-    "verified": "11.308",
-    "maximum": "11"
+    "verified": "11.315",
+    "maximum": "11.315"
   },
   "minimumCoreVersion": "11",
   "styles": [
@@ -41,6 +41,12 @@
       "lang": "de",
       "name": "German",
       "path": "lang/de.json"
+    },
+    {
+      "lang": "fr",
+      "name": "Français",
+      "path": "lang/fr.json"
+      
     }
   ],
   "packFolders": [
@@ -91,6 +97,7 @@
           },
           "packs": [
             "plot-unfolding-machine",
+            "scene-unfolding-machine",
             "game-unfolding-machine",
             "game-unfolding-machine-v2-tables"
           ]
@@ -213,6 +220,17 @@
       "name": "plot-unfolding-machine",
       "label": "Plot Unfolding Machine Tables",
       "path": "packs/plot-unfolding-machine.db",
+      "module": "mythic-gme-tools",
+      "type": "RollTable",
+      "ownership": {
+        "PLAYER": "NONE",
+        "ASSISTANT": "OWNER"
+      }
+    },
+    {
+      "name": "scene-unfolding-machine",
+      "label": "Scene Unfolding Machine Tables",
+      "path": "packs/scene-unfolding-machine.db",
       "module": "mythic-gme-tools",
       "type": "RollTable",
       "ownership": {

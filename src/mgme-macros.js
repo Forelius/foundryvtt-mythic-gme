@@ -11,17 +11,114 @@ import MGMEVars1Panel from "./app/panel-mythic-vars1";
 import MGMEVars2Panel from "./app/panel-mythic-vars2";
 import PUMCore from "./logic/pum-core";
 import PUMPanel from "./app/panel-pum";
+import SUMPanel from "./app/panel-sum";
 import SUMCore from "./logic/sum-core";
+import SUMV7Core from "./logic/sum-v7-core";
 import GUMPanel from "./app/panel-gum";
 import GUMCore from "./logic/gum-core";
 import MGMECore2e from "./logic/mgme-core-2e";
 import GMAPanel from "./app/panel-gma";
 import GUMV2Core from "./logic/gum-v2-core";
 import GUM2Panel from "./app/panel-gum-v2";
-import PUMV6Core from "./logic/pum-v6-core";
-import PUMV6Panel from "./app/panel-pum-v6";
+import PUMV8Core from "./logic/pum-v8-core";
+import PUMV8Panel from "./app/panel-pum-v8";
+import SUMV7Panel from "./app/panel-sum-v7";
 
 export default class MGMEMacroAPI {
+
+  static mgmeRenderPanel(key, is_secondary=false) {
+    let startWidth = 400;
+    let startTop = 320;
+    let startHeight = undefined;
+    let resizable = false;
+    let win;
+    switch (key) {
+      case 'mgme_1e': {
+        win = new MGME1ePanel(is_secondary);
+        break;
+      }
+      case 'mgme_2e': {
+        win = new MGME2ePanel(is_secondary);
+        startTop = 375;
+        startHeight = 300;
+        startWidth = 420;
+        resizable = true;
+        break;
+      }
+      case 'mgme_vars1': {
+        win = new MGMEVars1Panel(is_secondary);
+        break;
+      }
+      case 'mgme_vars2': {
+        win = new MGMEVars2Panel(is_secondary);
+        break;
+      }
+      case 'gma_cards': {
+        win = new GMAPanel(is_secondary);
+        resizable = true;
+        startHeight = 250;
+        break;
+      }
+      case 'pum_core': {
+        win = new PUMPanel(is_secondary);
+        startTop = 325;
+        startHeight = 250;
+        startWidth = 450;
+        resizable = true;
+        break;
+      }
+      case 'sum_core': {
+        win = new SUMPanel(is_secondary);
+        startTop = 325;
+        startHeight = 250;
+        startWidth = 450;
+        resizable = true;
+        break;
+      }
+      case 'pum8_core': {
+        win = new PUMV8Panel(is_secondary);
+        startTop = 325;
+        startHeight = 250;
+        startWidth = 470;
+        resizable = true;
+        break;
+      }
+      case 'sum7_core': {
+        win = new SUMV7Panel(is_secondary);
+        startTop = 325;
+        startHeight = 250;
+        startWidth = 450;
+        resizable = true;
+        break;
+      }
+      case 'gum_core': {
+        win = new GUMPanel(is_secondary);
+        startTop = 325;
+        startHeight = 250;
+        startWidth = 470;
+        resizable = true;
+        break;
+      }
+      case 'gum2_core': {
+        win = new GUM2Panel(is_secondary);
+        startTop = 325;
+        startHeight = 250;
+        startWidth = 470;
+        resizable = true;
+        break;
+      }
+    }
+    if (is_secondary)
+      startTop += 320;
+    win?.render(true, {
+      width: startWidth,
+      left: (canvas.app.screen.width - ui.sidebar.element.width() - startWidth - 20),
+      top: canvas.app.screen.height - startTop,
+      height: startHeight,
+      resizable: resizable
+    });
+    return win;
+  }
 
   static mgmeLaunchPanel() {
     if (game.settings.get('mythic-gme-tools', 'panelPermission') === 'onlygm' && !game.user.isGM) {
@@ -34,78 +131,7 @@ export default class MGMEMacroAPI {
       delete api.win;
     }
     if (key === 'nopanel') return;
-    let startWidth = 400;
-    let startTop = 320;
-    let startHeight = undefined;
-    let resizable = false;
-    let win;
-    switch (key) {
-      case 'mgme_1e': {
-        win = new MGME1ePanel();
-        break;
-      }
-      case 'mgme_2e': {
-        win = new MGME2ePanel();
-        startTop = 375;
-        startHeight = 300;
-        startWidth = 420;
-        resizable = true;
-        break;
-      }
-      case 'mgme_vars1': {
-        win = new MGMEVars1Panel();
-        break;
-      }
-      case 'mgme_vars2': {
-        win = new MGMEVars2Panel();
-        break;
-      }
-      case 'gma_cards': {
-        win = new GMAPanel();
-        resizable = true;
-        startHeight = 250;
-        break;
-      }
-      case 'pum_core': {
-        win = new PUMPanel();
-        startTop = 325;
-        startHeight = 250;
-        startWidth = 450;
-        resizable = true;
-        break;
-      }
-      case 'pum6_core': {
-        win = new PUMV6Panel();
-        startTop = 325;
-        startHeight = 250;
-        startWidth = 450;
-        resizable = true;
-        break;
-      }
-      case 'gum_core': {
-        win = new GUMPanel();
-        startTop = 325;
-        startHeight = 250;
-        startWidth = 470;
-        resizable = true;
-        break;
-      }
-      case 'gum2_core': {
-        win = new GUM2Panel();
-        startTop = 325;
-        startHeight = 250;
-        startWidth = 470;
-        resizable = true;
-        break;
-      }
-    }
-    win?.render(true, {
-      width: startWidth,
-      left: (canvas.app.screen.width - ui.sidebar.element.width() - startWidth - 20),
-      top: canvas.app.screen.height - startTop,
-      height: startHeight,
-      resizable: resizable
-    });
+    const win = MGMEMacroAPI.mgmeRenderPanel(key);
     api.win = win;
   }
 
@@ -130,7 +156,13 @@ export default class MGMEMacroAPI {
       case 'pum_core': {
         break;
       }
-      case 'pum6_core': {
+      case 'sum_core': {
+        break;
+      }
+      case 'pum8_core': {
+        break;
+      }
+      case 'sum7_core': {
         break;
       }
       case 'gum_core': {
@@ -248,8 +280,6 @@ export default class MGMEMacroAPI {
   static pumLooksArea = PUMCore.pumLooksArea;
   static pumLooksNPC = PUMCore.pumLooksNPC;
   static pumLooksObject = PUMCore.pumLooksObject;
-  static pumLooksItem = PUMV6Core.pumLooksItem;
-  static pumLooksMonster = PUMV6Core.pumLooksMonster;
   static pumWho = PUMCore.pumWho;
   static pumSubject = PUMCore.pumSubject;
   static pumWhat = PUMCore.pumWhat;
@@ -262,22 +292,50 @@ export default class MGMEMacroAPI {
   static pumKindOfEnemy = PUMCore.pumKindOfEnemy;
   static pumKindOfDanger = PUMCore.pumKindOfDanger;
 
-  static pumV6Prompt = PUMV6Core.pumV6Prompt;
-  static pumV6Check = PUMV6Core.pumV6Check;
-  static pumV6Challenge = PUMV6Core.pumV6Challenge;
-  static pumV6Catalyst = PUMV6Core.pumV6Catalyst;
-  static pumV6Complication = PUMV6Core.pumV6Complication;
-  static pumV6Situation = PUMV6Core.pumV6Situation;
+  static pumV8RandomPrompt = PUMV8Core.pumV8RandomPrompt;
+  static pumV8ModifiedProposal = PUMV8Core.pumV8ModifiedProposal;
+  static pumV8Challenge = PUMV8Core.pumV8Challenge;
+  static pumV8Catalyst = PUMV8Core.pumV8Catalyst;
+  static pumV8Complication = PUMV8Core.pumV8Complication;
+  static pumV8Situation = PUMV8Core.pumV8Situation;
 
-  static pumV6RenderAspectsList = PUMV6Core.pumV6RenderAspectsList;
-  static pumV6RenderActorsList = PUMV6Core.pumV6RenderActorsList;
-  static pumV6RenderTroublesList = PUMV6Core.pumV6RenderTroublesList;
-  static pumV6RenderThreadsList = PUMV6Core.pumV6RenderThreadsList;
+  static pumV8Subjective = (formula) => PUMV8Core.pumV8Subjective(formula);
+  static pumV8Deterministic = (formula) => PUMV8Core.pumV8Deterministic(formula);
+  static pumV8Interaction = (formula) => PUMV8Core.pumV8Interaction(formula);
 
-  static pumV6RollAspectsList = PUMV6Core.pumV6RollAspectsList;
-  static pumV6RollActorsList = PUMV6Core.pumV6RollActorsList;
-  static pumV6RollTroublesList = PUMV6Core.pumV6RollTroublesList;
-  static pumV6RollThreadsList = PUMV6Core.pumV6RollThreadsList;
+  static pumV8Disruption = PUMV8Core.pumV8Disruption;
+
+  static pumV8Someone = PUMV8Core.pumV8Someone;
+  static pumV8Intent = PUMV8Core.pumV8Intent;
+  static pumV8Activity = PUMV8Core.pumV8Activity;
+  static pumV8Place = PUMV8Core.pumV8Place;
+  static pumV8Reason = PUMV8Core.pumV8Reason;
+  static pumV8Explain = PUMV8Core.pumV8Explain;
+
+  static pumV8Focus = PUMV8Core.pumV8Focus;
+
+  static pumV8HowMany = (formula) => PUMV8Core.pumV8HowMany(formula);
+  static pumV8HowWell = (formula) => PUMV8Core.pumV8HowWell(formula);
+  static pumV8HowHard = (formula) => PUMV8Core.pumV8HowHard(formula);
+
+  static pumV8Time = PUMV8Core.pumV8Time;
+  static pumV8Object = PUMV8Core.pumV8Object;
+  static pumV8Fight = PUMV8Core.pumV8Fight;
+  static pumV8Sense = PUMV8Core.pumV8Sense;
+  static pumV8Discovery = PUMV8Core.pumV8Discovery;
+  static pumV8Stakes = PUMV8Core.pumV8Stakes;
+
+  static pumV8Description = PUMV8Core.pumV8Description;
+
+  static pumV8RenderAspectsList = PUMV8Core.pumV8RenderAspectsList;
+  static pumV8RenderEncountersList = PUMV8Core.pumV8RenderEncountersList;
+  static pumV8RenderFindsList = PUMV8Core.pumV8RenderFindsList;
+  static pumV8RenderQuestionsList = PUMV8Core.pumV8RenderQuestionsList;
+
+  static pumV8RollAspectsList = PUMV8Core.pumV8RollAspectsList;
+  static pumV8RollEncountersList = PUMV8Core.pumV8RollEncountersList;
+  static pumV8RollFindsList = PUMV8Core.pumV8RollFindsList;
+  static pumV8RollQuestionsList = PUMV8Core.pumV8RollQuestionsList;
 
   static gmaDraw = (deck) => MGMECards.mgmeDealCard({tableName: deck});
 
@@ -292,6 +350,22 @@ export default class MGMEMacroAPI {
   static sumAction = SUMCore.sumAction;
   static sumSubject = SUMCore.sumSubject;
   static sumAdjective = SUMCore.sumAdjective;
+
+  static sumV7ActionsReaction = (formula) => SUMV7Core.sumV7ActionsReaction(formula);
+  static sumV7FirstReaction = (formula) => SUMV7Core.sumV7FirstReaction(formula);
+  static sumV7BondingRelations = (formula) => SUMV7Core.sumV7BondingRelations(formula);
+  static sumV7PlotContribution = (formula) => SUMV7Core.sumV7PlotContribution(formula);
+  static sumV7FillerTalks = (formula) => SUMV7Core.sumV7FillerTalks(formula);
+  static sumV7PersonalityType = (formula) => SUMV7Core.sumV7PersonalityType(formula);
+  static sumV7InterventionCheck = (formula) => SUMV7Core.sumV7InterventionCheck(formula);
+  static sumV7LingeringBackstories = (formula) => SUMV7Core.sumV7LingeringBackstories(formula);
+  static sumV7SceneOpener = (formula) => SUMV7Core.sumV7SceneOpener(formula);
+  static sumV7OpinionResponse = (formula) => SUMV7Core.sumV7OpinionResponse(formula);
+  static sumV7OutsideImpression = (formula) => SUMV7Core.sumV7OutsideImpression(formula);
+  static sumV7ParallelMatters = (formula) => SUMV7Core.sumV7ParallelMatters(formula);
+  static sumV7JobProfession = (formula) => SUMV7Core.sumV7JobProfession(formula);
+  static sumV7RecentAnecdote = (formula) => SUMV7Core.sumV7RecentAnecdote(formula);
+  static sumV7TruthOrDare = (formula) => SUMV7Core.sumV7TruthOrDare(formula);
 
   static gumActionGood = GUMCore.gumActionGood;
   static gumActionEvil = GUMCore.gumActionEvil;

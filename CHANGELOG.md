@@ -1,3 +1,44 @@
+### 2.9.19
+* Update: Scene unfolding machine V7 final
+* Update: Game unfolding machine (free edition) revision
+* Enhancement: Added bias rolls in PUM and SUM (rolling twice)
+* Enhancement: Separated SUM from PUM free edition
+* Bugfix: "Show dice roll details" now works with table rolls
+* Bugfix: Fixed wrong formulas in bias rolls (keep lowest, keep highest)
+* Bugfix: Fixed Mythic character background table missing value
+
+### 2.9.18
+* Update: Plot unfolding machine V8-1 final
+
+### 2.9.17
+* Feature: Allow multiple different panels
+
+### 2.9.16
+* Bugfix: Arranged correct oracle order
+
+### 2.9.15
+* Bugfix: Fixed minor table typos
+
+### 2.9.14
+* Feature: Plot unfolding machine to preview v8-1
+
+### 2.9.13
+* Feature: Scene unfolding machine v6
+* Enhancement: PUM oracle questions now prompt
+
+### 2.9.12
+* Enhancement: Updated to PUM V8 Final
+
+### 2.9.11
+* Bugfix: Fixed PUM v8 database
+
+### 2.9.10
+* Enhancement: Added FRENCH (Thank you @Kirwiisp)
+* Enhancement: All languages now autot-translated (Thank you @Kirwiisp)
+
+### 2.9.9
+* Enhancement: Updated to PUM V8 and GUM V12
+
 ### 2.9.8
 * Feature: Plot unfolding machine V6 support
 * Enhancement: Updated to GUM V11

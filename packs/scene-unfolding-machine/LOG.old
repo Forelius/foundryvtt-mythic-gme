@@ -1,0 +1,5 @@
+2024/03/22-15:40:18.101955 7fbf864006c0 Log #12: 0 ops saved to Table #15 OK
+2024/03/22-15:40:18.101973 7fbf864006c0 Archiving /home/saif/.local/share/FoundryVTT/Data/modules/mythic-gme-tools/packs/scene-unfolding-machine/000012.log: OK
+2024/03/22-15:40:18.102069 7fbf864006c0 Table #14: 347 entries OK
+2024/03/22-15:40:18.102103 7fbf864006c0 Archiving /home/saif/.local/share/FoundryVTT/Data/modules/mythic-gme-tools/packs/scene-unfolding-machine/MANIFEST-000010: OK
+2024/03/22-15:40:18.104828 7fbf864006c0 **** Repaired leveldb /home/saif/.local/share/FoundryVTT/Data/modules/mythic-gme-tools/packs/scene-unfolding-machine; recovered 1 files; 43373 bytes. Some data may have been lost. ****
